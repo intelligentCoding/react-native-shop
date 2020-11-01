@@ -12,15 +12,20 @@ const ProductOverViewScreen  = props =>{
         <FlatList 
             data={products} keyExtractor={item => item.id } 
             renderItem={
-                itemData => <ProductItem 
-                        image={itemData.item.imageUrl} 
-                        price={itemData.item.price} 
-                        title={itemData.item.title}
-                        onViewDetail={()=>{
-                            props.navigation.navigate('ProductDetail')
-                        }} 
-                        onAddToCart={()=>{}} 
-                        />
+                itemData => 
+                <ProductItem 
+                    image={itemData.item.imageUrl} 
+                    price={itemData.item.price} 
+                    title={itemData.item.title}
+                    onViewDetail={()=>{
+                        props.navigation.navigate('ProductDetail', 
+                        {
+                            productId: itemData.item.id,
+                            productTitle: itemData.item.title
+                        })
+                    }} 
+                    onAddToCart={()=>{}} 
+                />
             } 
         /> 
     );
