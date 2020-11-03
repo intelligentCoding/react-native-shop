@@ -13,25 +13,25 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer);
 
 //get the fonts
-const fetchFonts = async () =>{
-  return await Font.loadAsync({
-    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
-    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
-  })
-}
+// const fetchFonts = async () =>{
+//   return await Font.loadAsync({
+//     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+//     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+//   })
+// }
 
 export default function App() {
 
-  const [fontLoaded, setFontLoaded] = useState(false);
+  // const [fontLoaded, setFontLoaded] = useState(false);
   
-  if(!fontLoaded){
-    <AppLoading
-      startAsync={fetchFonts}
-      onFinish={()=>{
-        setFontLoaded(true);
-      }}
-    />
-  }
+  // if(!fontLoaded){
+  //   <AppLoading
+  //     startAsync={fetchFonts}
+  //     onFinish={()=>{
+  //       setFontLoaded(true);
+  //     }}
+  //   />
+  // }
   return (
     <Provider store={store}>
       <ShopNavigator />

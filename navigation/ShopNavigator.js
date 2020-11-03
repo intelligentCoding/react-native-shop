@@ -14,11 +14,11 @@ const ProductNavigator = createStackNavigator({
             backgroundColor: Platform.OS ==='android' ? Colors.primary : ''
         },
         headerTitleStyle:{
-            fontFamily: 'open-sans-bold',
+            // fontFamily: 'open-sans-bold',
         },
         //for IOS
         headerBackTitleStyle:{
-            fontFamily: 'open-sans',
+            // fontFamily: 'open-sans',
         },
         headerTintColor: Platform.OS ==='android' ? 'white' :  Colors.primary
     }
