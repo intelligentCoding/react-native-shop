@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Colors from '../../constants/Colors';
+import CartItem from '../../components/shop/CartItem'
+import * as cartActions from '../../store/actions/cart';
+import * as orderActions from '../../store/actions/order';
 const CartScreen = props =>{
     const cartTotalAmount = useSelector(state => state.cart.totalAmount);
     const cartItems = useSelector(state=>{
@@ -16,8 +19,9 @@ const CartScreen = props =>{
                 sum: state.cart.items[key].sum,
             })
         }
-        return transformedCartItems;
+        return transformedCartItems.sort((a,b) => a.productId > b.productId ? 1 : -1);
     });
+    const dispatch  = useDispatch();
     return <View style={styles.screen}>
         <View style={styles.summary}>
             <Text style={styles.summaryText}>
@@ -26,12 +30,29 @@ const CartScreen = props =>{
                     ${cartTotalAmount.toFixed(2)}
                 </Text>
         </Text>
-            <Button color={Colors.accent} title="Order Now" disabled={cartItems.length === 0}/>
+            <Button 
+            color={Colors.accent} 
+            title="Order Now" 
+            disabled={cartItems.length === 0}
+            onPress={()=>{
+                dispatch(orderActions.addOrder(cartItems, cartTotalAmount))
+            }}
+            />
         </View>
 
-        <View>
-            <Text>Cart Items</Text>
-        </View>
+        <FlatList 
+        data={cartItems}
+        keyExtractor={item => item.productId }
+        renderItem={itemData=> <CartItem 
+            quantity={itemData.item.quantity}
+            title={itemData.item.productTitle}
+            amount={itemData.item.sum}
+            onRemove={()=>{
+                dispatch(cartActions.removeFromCart(itemData.item.productId))
+            }}
+
+        />}
+        />
     </View>
 }
 
